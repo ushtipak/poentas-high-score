@@ -18,12 +18,17 @@ securityDefinitions:
     in: header
 
 paths:
-  /highscores:
+  '/highscores/{car}':
     get:
       tags:
       - Highscore
-      summary: Get highscores
+      summary: Get highscores for specific car
       operationId: getHighscores
+      parameters:
+        - in: path
+          name: car
+          required: true
+          type: string
       produces:
         - application/json
       responses:
@@ -43,6 +48,10 @@ paths:
       produces:
         - application/json
       parameters:
+        - in: path
+          name: car
+          required: true
+          type: string
         - in: body
           name: body
           description: Highscore object
