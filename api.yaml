@@ -1,0 +1,78 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+  title: Poenta's High(score)
+host: podmornice.com
+basePath: /v1
+
+tags:
+  - name: Highscore
+    description: Manage Highscores
+
+schemes:
+  - https
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: X-Key
+    in: header
+
+paths:
+  /highscores:
+    get:
+      tags:
+      - Highscore
+      summary: Get highscores
+      operationId: getHighscores
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/highscores'
+      security:
+        - api_key: []
+    post:
+      tags:
+      - Highscore
+      summary: Update highscore
+      operationId: updateHighscore
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Highscore object
+          required: true
+          schema:
+            $ref: '#/definitions/highscore'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/highscores'
+        '400':
+          description: Invalid highscore object
+      security:
+        - api_key: []
+
+definitions:
+  highscore:
+    type: object
+    properties:
+      user:
+        type: string
+      score:
+        type: number
+
+  highscores:
+    type: object
+    properties:
+      highscore:
+        type: array
+        items:
+          $ref: '#/definitions/highscore'
+
